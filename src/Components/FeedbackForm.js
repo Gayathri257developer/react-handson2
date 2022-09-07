@@ -1,56 +1,30 @@
-import React from 'react'
-import { useState } from 'react';
+import React from "react"
 
-const FeedbackForm = () =>{
-  const[name,setName] = useState('');
-  const[depart,setDepart] = useState('');
-  const[rating,setRating] = useState('');
-  const[time,setTime] = useState([]);
 
-  const getName = (e) => {
-    setName(e.target.value)
-  }
+const ShowUser = (props) => {
+  return(
+      <>
+      <div className="form">
+      <h1> Emoplyee Feedback Form</h1>
+     Name:<input value={props.name} type="text" onChange={props.updateName} />
+      <br />
+     Department:<input value={props.depart} type="text" onChange={props.updateDepartment}/>
+     <br/>
+     Rating:<input value={props.rating} type="number" onChange={props.updateRating}/>
+      
+      </div>
 
-  const getDepart = (e) => {
-    setDepart( e.target.value)
-  }
-
-  const getRating = (e) => {
-    setRating (e.target.value)
-  }
-
-  const submitForm = (e) =>{
-    e.preventDefault();
-    setTime((data) => {
-      return [...data,[`Name = ${name} || Departmenr = ${depart} || Rating = ${rating} `]] 
-    })
-  
-  }
-
-   return(
-    <div className='form'>
-     <h1>Employee Feedback Form</h1> 
-
-     
-  <form onSubmit={submitForm}>
-      <label>Name: <input type="text" value={name} onChange={getName} /></label>
-        <br/>
-      <label>Department: <input type="text" value={depart} onChange={getDepart} /></label>
-        <br/>
-      <label>Rating: <input type="number" value={rating} onChange={getRating} /></label>
-        <br/>
-      <button>Submit</button>  
-  </form>
-  
-    <div id='formdata'>
-    {
-      time.map((saveValue) =>{
-        return <div className='databox'>{saveValue}</div>
-      })
+      <div id="formdata">
+      {
+        props.users.map(item => { 
+          return  <div className="databox">Name: {`${item.name} || Department: ${item.depart} || Rating: ${item.rating}`}
+          </div>  
+          
+        })
     }
-    </div>
-</div>
-   ); 
+      </div>
+     </> 
+  )
 }
 
-export default FeedbackForm
+export default ShowUser
